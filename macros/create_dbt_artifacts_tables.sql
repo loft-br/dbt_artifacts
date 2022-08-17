@@ -6,8 +6,6 @@
     {% set database_name = var('dbt_artifacts_database', target.database) %}
     {% endif %}
 
-    {%- do adapter.create_schema(api.Relation.create(database=database_name, schema=var('dbt_artifacts_schema', target.schema))) -%}
-
     {% set src_dbt_exposures = source('dbt_artifacts', 'exposures') %}
     {{ dbt_artifacts.create_exposures_table_if_not_exists(src_dbt_exposures.database, src_dbt_exposures.schema, src_dbt_exposures.identifier) }}
 
